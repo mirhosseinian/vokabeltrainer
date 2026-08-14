@@ -24,41 +24,33 @@
   .rate{display:flex;align-items:center;gap:8px;font-size:.82rem;color:#8fb0a4}
   .rate input{accent-color:#2a8d6c}
   .count{font-size:.82rem;color:#8fb0a4;white-space:nowrap;margin-left:auto}
-
   .tabs{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
-  .tab{background:#13241f;border:1px solid #26413a;color:#8fb0a4;border-radius:20px;
-    padding:7px 15px;font-size:.85rem;font-weight:600;cursor:pointer;transition:.15s}
+  .tab{background:#13241f;border:1px solid #26413a;color:#8fb0a4;border-radius:20px;padding:7px 15px;font-size:.85rem;font-weight:600;cursor:pointer;transition:.15s}
   .tab:hover{border-color:#2a8d6c;color:#bfeee3}
   .tab.active{background:#1f6f54;border-color:#2a8d6c;color:#fff}
   .tab.fav.active{background:#b8860b;border-color:#e0a92c;color:#fff}
+  .tab.study{background:#153a4a;border-color:#2f7fa0;color:#bfe4f0}
+  .tab.study:hover{border-color:#4aa6c8;color:#fff}
   .tools{margin-left:auto;display:flex;gap:8px}
-  .tools button{background:#13241f;border:1px solid #26413a;color:#8fb0a4;border-radius:8px;
-    padding:6px 11px;font-size:.78rem;cursor:pointer}
+  .tools button{background:#13241f;border:1px solid #26413a;color:#8fb0a4;border-radius:8px;padding:6px 11px;font-size:.78rem;cursor:pointer}
   .tools button:hover{border-color:#2a8d6c;color:#bfeee3}
-
   .panel{display:none;background:#13241f;border:1px solid #26413a;border-radius:12px;padding:13px;margin-bottom:14px}
   .panel.open{display:block}
   .panel h3{font-size:.9rem;margin-bottom:6px;color:#bfeee3}
   .panel p{font-size:.8rem;color:#8fb0a4;margin-bottom:8px}
-  .panel textarea{width:100%;height:70px;background:#0e1b17;border:1px solid #26413a;border-radius:8px;
-    color:#eaf3ef;padding:8px;font-size:.85rem;font-family:monospace;resize:vertical;outline:none}
+  .panel textarea{width:100%;height:70px;background:#0e1b17;border:1px solid #26413a;border-radius:8px;color:#eaf3ef;padding:8px;font-size:.85rem;font-family:monospace;resize:vertical;outline:none}
   .panel .row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
   .panel .row button{background:#1f6f54;border:0;color:#fff;border-radius:8px;padding:7px 13px;font-size:.82rem;font-weight:600;cursor:pointer}
   .panel .row button.ghost{background:#0e1b17;border:1px solid #26413a;color:#8fb0a4}
   .msg{font-size:.78rem;color:#7fd1c0;margin-top:7px;min-height:1em}
-
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
-  .empty{color:#8fb0a4;font-size:.9rem;background:#13241f;border:1px dashed #26413a;
-    border-radius:12px;padding:24px;text-align:center;grid-column:1/-1}
+  .empty{color:#8fb0a4;font-size:.9rem;background:#13241f;border:1px dashed #26413a;border-radius:12px;padding:24px;text-align:center;grid-column:1/-1}
   .card{background:#13241f;border:1px solid #26413a;border-radius:14px;padding:14px 15px;display:flex;flex-direction:column;gap:9px;position:relative}
   .card.isfav{border-color:#7a5a12;background:#181f18}
   .card.flash{animation:flash 1.4s ease-out}
   @keyframes flash{0%{border-color:#2a8d6c;box-shadow:0 0 0 3px rgba(42,141,108,.5)}100%{border-color:#26413a;box-shadow:none}}
-  .num{position:absolute;top:10px;right:12px;font-size:.74rem;font-weight:800;color:#0e2a22;
-    background:#7fd1c0;border:1px solid #a7e4d7;border-radius:20px;padding:2px 10px;letter-spacing:.03em}
-  .star{position:absolute;top:8px;right:60px;width:32px;height:32px;border-radius:9px;
-    border:1px solid #26413a;background:#0e1b17;color:#5d7d72;cursor:pointer;
-    display:grid;place-items:center;transition:.15s;padding:0;font-size:1.05rem;line-height:1}
+  .num{position:absolute;top:10px;right:12px;font-size:.74rem;font-weight:800;color:#0e2a22;background:#7fd1c0;border:1px solid #a7e4d7;border-radius:20px;padding:2px 10px;letter-spacing:.03em}
+  .star{position:absolute;top:8px;right:60px;width:32px;height:32px;border-radius:9px;border:1px solid #26413a;background:#0e1b17;color:#5d7d72;cursor:pointer;display:grid;place-items:center;transition:.15s;padding:0;font-size:1.05rem;line-height:1}
   .star:hover{border-color:#e0a92c;color:#e0a92c}
   .star.on{background:#e0a92c;border-color:#f0c14b;color:#2a1f04}
   .star:active{transform:scale(.9)}
@@ -95,14 +87,55 @@
   .ex-row.fa-row{flex-direction:row-reverse}
   .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.8rem;color:#8fb0a4;margin-top:14px}
   footer{margin-top:14px;font-size:.78rem;color:#5d7d72;text-align:center}
+
+  /* ---- Karteikarten (Flashcards) ---- */
+  .study-overlay{display:none;position:fixed;inset:0;z-index:50;background:rgba(6,14,11,.94);
+    backdrop-filter:blur(3px);padding:18px;overflow:auto}
+  .study-overlay.open{display:flex;flex-direction:column;align-items:center}
+  .study-top{width:100%;max-width:640px;display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .study-top .st-title{font-weight:800;font-size:1.05rem}
+  .study-top .st-close{margin-left:auto;background:#13241f;border:1px solid #26413a;color:#bfeee3;border-radius:9px;padding:7px 12px;font-size:.85rem;cursor:pointer}
+  .set-toggle{display:flex;gap:6px}
+  .set-toggle button{background:#13241f;border:1px solid #26413a;color:#8fb0a4;border-radius:20px;padding:5px 12px;font-size:.78rem;font-weight:600;cursor:pointer}
+  .set-toggle button.active{background:#1f6f54;border-color:#2a8d6c;color:#fff}
+  .progress{width:100%;max-width:640px;height:6px;background:#13241f;border-radius:4px;overflow:hidden;margin-bottom:6px}
+  .progress > i{display:block;height:100%;background:#2a8d6c;width:0;transition:width .2s}
+  .pcount{width:100%;max-width:640px;font-size:.8rem;color:#8fb0a4;margin-bottom:10px}
+  .flash-card{width:100%;max-width:640px;min-height:300px;background:#13241f;border:1px solid #2f5247;
+    border-radius:18px;padding:26px 22px;cursor:pointer;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:16px;text-align:center;user-select:none;transition:.15s}
+  .flash-card:hover{border-color:#2a8d6c}
+  .fc-num{position:absolute;font-size:.7rem;color:#5d7d72}
+  .fc-front .word{font-size:2rem;font-weight:800;color:#bfeee3}
+  .fc-tap{font-size:.8rem;color:#5d7d72}
+  .fc-back{display:none;flex-direction:column;gap:14px;width:100%}
+  .flash-card.flipped .fc-front{display:none}
+  .flash-card.flipped .fc-back{display:flex}
+  .fc-b-row{display:flex;align-items:center;gap:10px;justify-content:center}
+  .fc-de{font-size:1.4rem;font-weight:800;color:#f6d6a6}
+  .fc-fa{font-size:1.4rem;color:#cfe6dd;direction:rtl;font-family:"Noto Naskh Arabic","Tahoma",sans-serif}
+  .fc-en-small{font-size:1rem;color:#7fd1c0;font-weight:700}
+  .fc-ex{border-top:1px solid #20362f;padding-top:12px;margin-top:4px;display:flex;flex-direction:column;gap:6px;font-size:.86rem}
+  .fc-ex .l1{color:#bfeee3;font-style:italic}
+  .fc-ex .l2{color:#f0d8ad}
+  .fc-ex .l3{color:#cfe6dd;direction:rtl;text-align:right;font-family:"Noto Naskh Arabic","Tahoma",sans-serif}
+  .study-btns{width:100%;max-width:640px;display:flex;gap:10px;margin-top:16px}
+  .study-btns button{flex:1;background:#13241f;border:1px solid #26413a;color:#eaf3ef;border-radius:12px;
+    padding:14px;font-size:.95rem;font-weight:700;cursor:pointer;transition:.15s}
+  .study-btns button:hover{border-color:#2a8d6c}
+  .study-btns .flip{background:#1f6f54;border-color:#2a8d6c;color:#fff}
+  .study-extra{width:100%;max-width:640px;display:flex;gap:10px;margin-top:10px;justify-content:center}
+  .study-extra button{background:transparent;border:1px solid #26413a;color:#8fb0a4;border-radius:9px;padding:8px 14px;font-size:.82rem;cursor:pointer}
+  .study-extra button:hover{border-color:#2a8d6c;color:#bfeee3}
+  .study-empty{max-width:520px;text-align:center;color:#8fb0a4;font-size:.95rem;background:#13241f;border:1px dashed #26413a;border-radius:14px;padding:28px;margin-top:40px}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="kicker">Aussprache-Trainer · Wärmepumpen-Vokabular</div>
   <h1>Hör dir jedes Wort an &mdash; 🇬🇧 🇩🇪 &amp; Beispiele 🇮🇷</h1>
-  <p class="sub">Tippe auf den <b>Stern ☆</b>, um ein Wort in die Favoriten zu legen &ndash; z.&nbsp;B. wenn du es noch nicht kennst oder es wichtig ist.</p>
-  <div class="note">🔊 Ton eingebaut · 👆 englisches Beispiel antippen für DE + FA · ⭐ Favoriten werden gespeichert</div>
+  <p class="sub">Wörter mit dem <b>Stern ☆</b> markieren, dann mit <b>🎴 Karteikarten</b> gezielt üben.</p>
+  <div class="note">🔊 Ton · 👆 Beispiel antippen für DE + FA · ⭐ Favoriten · 🎴 Karteikarten-Übung</div>
 
   <div class="controls">
     <label class="search">
@@ -122,6 +155,7 @@
   <div class="tabs">
     <button class="tab active" id="tabAll">Alle Wörter</button>
     <button class="tab fav" id="tabFav">⭐ Favoriten (<span id="favCount">0</span>)</button>
+    <button class="tab study" id="btnStudy">🎴 Karteikarten</button>
     <span class="tools">
       <button id="btnBackup">Sichern / Laden</button>
     </span>
@@ -147,7 +181,22 @@
     <span style="color:#cfe6dd">● Persisch</span>
     <span style="color:#e0a92c">★ Favorit</span>
   </div>
-  <footer>194 Wörter · nummeriert · eingebauter Ton · Favoriten-Ordner</footer>
+  <footer>194 Wörter · eingebauter Ton · Favoriten · Karteikarten</footer>
+</div>
+
+<!-- Karteikarten-Übung -->
+<div class="study-overlay" id="study">
+  <div class="study-top">
+    <span class="st-title">🎴 Karteikarten</span>
+    <span class="set-toggle">
+      <button id="setFav" class="active">⭐ Favoriten</button>
+      <button id="setAll">Alle</button>
+    </span>
+    <button class="st-close" id="stClose">✕ Schließen</button>
+  </div>
+  <div class="progress"><i id="pbar"></i></div>
+  <div class="pcount" id="pcount"></div>
+  <div id="studyBody" style="width:100%;display:flex;flex-direction:column;align-items:center"></div>
 </div>
 
 <script>
@@ -157,28 +206,13 @@ const KEY = 'wp_vokabeln_favoriten';
 const spkIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>`;
 const chev = `<svg class="chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
 
-/* ---- Favoriten speichern (mit Fallback, falls Speicher gesperrt) ---- */
-let favs = new Set();
-let canStore = true;
-function loadFavs(){
-  try{
-    const raw = localStorage.getItem(KEY);
-    if(raw) favs = new Set(JSON.parse(raw));
-  }catch(e){ canStore = false; }
-}
-function saveFavs(){
-  try{ localStorage.setItem(KEY, JSON.stringify([...favs])); }
-  catch(e){ canStore = false; }
-}
+let favs = new Set(), canStore = true;
+function loadFavs(){try{const raw=localStorage.getItem(KEY);if(raw)favs=new Set(JSON.parse(raw));}catch(e){canStore=false;}}
+function saveFavs(){try{localStorage.setItem(KEY,JSON.stringify([...favs]));}catch(e){canStore=false;}}
 loadFavs();
+let showFavOnly=false;
+function updateFavCount(){document.getElementById('favCount').textContent=favs.size;}
 
-let showFavOnly = false;
-
-function updateFavCount(){
-  document.getElementById('favCount').textContent = favs.size;
-}
-
-/* ---- Ton ---- */
 let cur=null, curBtn=null;
 function play(b64, btn){
   if(cur){cur.pause();}
@@ -193,7 +227,6 @@ function play(b64, btn){
 
 const grid=document.getElementById('grid');
 function escapeHtml(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
-
 function currentList(){
   const t=document.getElementById('q').value.trim().toLowerCase();
   return DATA.map((_,i)=>i).filter(i=>{
@@ -202,40 +235,27 @@ function currentList(){
     return true;
   });
 }
-
 function render(){
-  const list = currentList();
-  grid.innerHTML='';
+  const list=currentList(); grid.innerHTML='';
   if(list.length===0){
     const d=document.createElement('div'); d.className='empty';
-    d.textContent = showFavOnly
-      ? 'Noch keine Favoriten. Tippe bei einem Wort auf den Stern ☆.'
-      : 'Nichts gefunden.';
+    d.textContent=showFavOnly?'Noch keine Favoriten. Tippe bei einem Wort auf den Stern ☆.':'Nichts gefunden.';
     grid.append(d);
   }
   for(const idx of list){
     const [en,de,fa,exEn,exDe,exFa]=DATA[idx];
-    const isFav = favs.has(idx);
-    const card=document.createElement('div');
-    card.className='card'+(isFav?' isfav':''); card.id='card-'+idx;
+    const isFav=favs.has(idx);
+    const card=document.createElement('div'); card.className='card'+(isFav?' isfav':''); card.id='card-'+idx;
     card.innerHTML=
       `<span class="num">${idx+1}</span>`+
       `<button class="star${isFav?' on':''}" title="Zu Favoriten">${isFav?'★':'☆'}</button>`+
-      `<div class="line en"><span class="lang">EN</span>`+
-      `<button class="spk" title="Englisch anhören">${spkIcon}</button>`+
-      `<span class="txt">${escapeHtml(en)}</span></div>`+
-      `<div class="line de"><span class="lang">DE</span>`+
-      `<button class="spk" title="Deutsch anhören">${spkIcon}</button>`+
-      `<span class="txt">${escapeHtml(de)}</span></div>`+
+      `<div class="line en"><span class="lang">EN</span><button class="spk" title="Englisch anhören">${spkIcon}</button><span class="txt">${escapeHtml(en)}</span></div>`+
+      `<div class="line de"><span class="lang">DE</span><button class="spk" title="Deutsch anhören">${spkIcon}</button><span class="txt">${escapeHtml(de)}</span></div>`+
       `<div class="line fa-line"><span class="fa">${escapeHtml(fa)}</span></div>`+
-      `<div class="ex">`+
-        `<button class="ex-en" aria-expanded="false"><span class="s">${escapeHtml(exEn)}</span>${chev}</button>`+
+      `<div class="ex"><button class="ex-en" aria-expanded="false"><span class="s">${escapeHtml(exEn)}</span>${chev}</button>`+
         `<div class="hint">👆 für Deutsch + Persisch tippen</div>`+
-        `<div class="ex-more">`+
-          `<div class="ex-row"><span class="tag">DE</span><span class="ex-de">${escapeHtml(exDe)}</span></div>`+
-          `<div class="ex-row fa-row"><span class="tag">FA</span><span class="ex-fa">${escapeHtml(exFa)}</span></div>`+
-        `</div>`+
-      `</div>`;
+        `<div class="ex-more"><div class="ex-row"><span class="tag">DE</span><span class="ex-de">${escapeHtml(exDe)}</span></div>`+
+        `<div class="ex-row fa-row"><span class="tag">FA</span><span class="ex-fa">${escapeHtml(exFa)}</span></div></div></div>`;
     const btns=card.querySelectorAll('.spk');
     btns[0].onclick=e=>play(AUDIO[idx].en,e.currentTarget);
     btns[1].onclick=e=>play(AUDIO[idx].de,e.currentTarget);
@@ -243,14 +263,10 @@ function render(){
     toggle.onclick=()=>{const open=more.classList.toggle('open');toggle.setAttribute('aria-expanded',open);};
     const star=card.querySelector('.star');
     star.onclick=()=>{
-      if(favs.has(idx)){favs.delete(idx);} else {favs.add(idx);}
+      if(favs.has(idx))favs.delete(idx); else favs.add(idx);
       saveFavs(); updateFavCount();
-      if(showFavOnly){ render(); }
-      else{
-        const on=favs.has(idx);
-        star.classList.toggle('on',on); star.textContent=on?'★':'☆';
-        card.classList.toggle('isfav',on);
-      }
+      if(showFavOnly){render();}
+      else{const on=favs.has(idx);star.classList.toggle('on',on);star.textContent=on?'★':'☆';card.classList.toggle('isfav',on);}
       fillBackupBox();
     };
     grid.append(card);
@@ -258,52 +274,122 @@ function render(){
   document.getElementById('count').textContent=list.length+' / '+DATA.length;
 }
 
-/* ---- Tabs ---- */
 const tabAll=document.getElementById('tabAll'), tabFav=document.getElementById('tabFav');
 tabAll.onclick=()=>{showFavOnly=false;tabAll.classList.add('active');tabFav.classList.remove('active');render();};
 tabFav.onclick=()=>{showFavOnly=true;tabFav.classList.add('active');tabAll.classList.remove('active');render();};
-
-/* ---- Suche & Sprung ---- */
 document.getElementById('q').oninput=render;
 function jump(){
   const n=parseInt(document.getElementById('jn').value,10);
-  if(!n||n<1||n>DATA.length) return;
+  if(!n||n<1||n>DATA.length)return;
   document.getElementById('q').value='';
-  showFavOnly=false; tabAll.classList.add('active'); tabFav.classList.remove('active');
-  render();
+  showFavOnly=false;tabAll.classList.add('active');tabFav.classList.remove('active');render();
   const el=document.getElementById('card-'+(n-1));
-  if(el){el.scrollIntoView({behavior:'smooth',block:'center'});
-    el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');}
+  if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}
 }
 document.getElementById('jb').onclick=jump;
 document.getElementById('jn').addEventListener('keydown',e=>{if(e.key==='Enter')jump();});
 
-/* ---- Sichern / Laden ---- */
 const panel=document.getElementById('panel'), box=document.getElementById('backupBox'), msg=document.getElementById('msg');
-function fillBackupBox(){
-  box.value = [...favs].map(i=>i+1).sort((a,b)=>a-b).join(', ');
-}
+function fillBackupBox(){box.value=[...favs].map(i=>i+1).sort((a,b)=>a-b).join(', ');}
 document.getElementById('btnBackup').onclick=()=>{
   panel.classList.toggle('open'); fillBackupBox(); msg.textContent='';
-  if(!canStore) msg.textContent='Hinweis: In dieser Ansicht kann nicht dauerhaft gespeichert werden. Kopiere die Liste, um sie zu behalten.';
+  if(!canStore) msg.textContent='Hinweis: Hier kann nicht dauerhaft gespeichert werden. Öffne die Seite über den GitHub-Link (https).';
 };
 document.getElementById('btnClose').onclick=()=>panel.classList.remove('open');
 document.getElementById('btnLoad').onclick=()=>{
   const nums=(box.value.match(/\d+/g)||[]).map(Number).filter(n=>n>=1&&n<=DATA.length);
-  favs=new Set(nums.map(n=>n-1));
-  saveFavs(); updateFavCount(); render(); fillBackupBox();
-  msg.textContent = nums.length+' Favoriten übernommen.';
+  favs=new Set(nums.map(n=>n-1)); saveFavs(); updateFavCount(); render(); fillBackupBox();
+  msg.textContent=nums.length+' Favoriten übernommen.';
 };
 document.getElementById('btnClear').onclick=()=>{
   favs=new Set(); saveFavs(); updateFavCount(); render(); fillBackupBox();
   msg.textContent='Alle Favoriten gelöscht.';
 };
 
-updateFavCount();
-render();
+/* ================= Karteikarten-Übung ================= */
+const study=document.getElementById('study'), studyBody=document.getElementById('studyBody');
+const pbar=document.getElementById('pbar'), pcount=document.getElementById('pcount');
+const setFav=document.getElementById('setFav'), setAll=document.getElementById('setAll');
+let deck=[], pos=0, flipped=false, useFav=true;
+
+function buildDeck(){
+  let base = useFav ? [...favs] : DATA.map((_,i)=>i);
+  // mischen
+  for(let i=base.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[base[i],base[j]]=[base[j],base[i]];}
+  deck=base; pos=0; flipped=false;
+}
+function openStudy(){
+  study.classList.add('open'); document.body.style.overflow='hidden';
+  buildDeck(); showCard();
+}
+function closeStudy(){study.classList.remove('open'); document.body.style.overflow='';}
+function showCard(){
+  if(deck.length===0){
+    pbar.style.width='0'; pcount.textContent='';
+    studyBody.innerHTML='<div class="study-empty">Noch keine Favoriten zum Üben.<br>Schließe die Übung, tippe bei Wörtern auf den Stern ☆ und starte dann erneut.<br><br>Oder wähle oben <b>Alle</b>, um mit allen '+DATA.length+' Wörtern zu üben.</div>';
+    return;
+  }
+  const idx=deck[pos];
+  const [en,de,fa,exEn,exDe,exFa]=DATA[idx];
+  pbar.style.width=((pos+1)/deck.length*100)+'%';
+  pcount.textContent='Karte '+(pos+1)+' / '+deck.length+'   ·   Wort-Nr. '+(idx+1);
+  studyBody.innerHTML=
+    `<div class="flash-card${flipped?' flipped':''}" id="fcard">`+
+      `<div class="fc-front">`+
+        `<div class="fc-b-row"><button class="spk" id="fpEn" title="anhören">${spkIcon}</button>`+
+        `<span class="word">${escapeHtml(en)}</span></div>`+
+        `<div class="fc-tap">👆 Karte antippen zum Umdrehen</div>`+
+      `</div>`+
+      `<div class="fc-back">`+
+        `<div class="fc-en-small">${escapeHtml(en)}</div>`+
+        `<div class="fc-b-row"><button class="spk de" id="fpDe" title="anhören">${spkIcon}</button><span class="fc-de">${escapeHtml(de)}</span></div>`+
+        `<div class="fc-fa">${escapeHtml(fa)}</div>`+
+        `<div class="fc-ex"><div class="l1">${escapeHtml(exEn)}</div><div class="l2">${escapeHtml(exDe)}</div><div class="l3">${escapeHtml(exFa)}</div></div>`+
+      `</div>`+
+    `</div>`+
+    `<div class="study-btns">`+
+      `<button id="btnPrev">◀ Zurück</button>`+
+      `<button class="flip" id="btnFlip">${flipped?'Vorderseite':'Umdrehen'}</button>`+
+      `<button id="btnNext">Weiter ▶</button>`+
+    `</div>`+
+    `<div class="study-extra">`+
+      `<button id="btnShuffle">🔀 Neu mischen</button>`+
+      `<button id="btnUnfav">☆ Aus Favoriten entfernen</button>`+
+    `</div>`;
+  const fcard=document.getElementById('fcard');
+  fcard.onclick=(e)=>{ if(e.target.closest('.spk'))return; flip(); };
+  document.getElementById('fpEn').onclick=(e)=>{e.stopPropagation();play(AUDIO[idx].en,e.currentTarget);};
+  document.getElementById('fpDe').onclick=(e)=>{e.stopPropagation();play(AUDIO[idx].de,e.currentTarget);};
+  document.getElementById('btnFlip').onclick=flip;
+  document.getElementById('btnPrev').onclick=prev;
+  document.getElementById('btnNext').onclick=next;
+  document.getElementById('btnShuffle').onclick=()=>{buildDeck();showCard();};
+  const unfav=document.getElementById('btnUnfav');
+  unfav.style.visibility = useFav ? 'visible':'hidden';
+  unfav.onclick=()=>{
+    favs.delete(idx); saveFavs(); updateFavCount(); fillBackupBox();
+    deck.splice(pos,1); if(pos>=deck.length)pos=Math.max(0,deck.length-1); flipped=false; showCard(); render();
+  };
+}
+function flip(){flipped=!flipped;const c=document.getElementById('fcard');if(c){c.classList.toggle('flipped',flipped);document.getElementById('btnFlip').textContent=flipped?'Vorderseite':'Umdrehen';}}
+function next(){if(pos<deck.length-1){pos++;flipped=false;showCard();}}
+function prev(){if(pos>0){pos--;flipped=false;showCard();}}
+
+document.getElementById('btnStudy').onclick=openStudy;
+document.getElementById('stClose').onclick=closeStudy;
+setFav.onclick=()=>{useFav=true;setFav.classList.add('active');setAll.classList.remove('active');buildDeck();showCard();};
+setAll.onclick=()=>{useFav=false;setAll.classList.add('active');setFav.classList.remove('active');buildDeck();showCard();};
+document.addEventListener('keydown',e=>{
+  if(!study.classList.contains('open'))return;
+  if(e.key==='Escape')closeStudy();
+  else if(e.key==='ArrowRight')next();
+  else if(e.key==='ArrowLeft')prev();
+  else if(e.key===' '){e.preventDefault();flip();}
+});
+
+updateFavCount(); render();
 if(!canStore){
-  document.querySelector('.note').textContent =
-    '🔊 Ton eingebaut · ⭐ Favoriten: in dieser Ansicht nicht dauerhaft speicherbar – in Chrome öffnen, dann bleiben sie erhalten.';
+  document.querySelector('.note').textContent='🔊 Ton · 🎴 Karteikarten · ⭐ Favoriten werden nur über den GitHub-Link (https) dauerhaft gespeichert.';
 }
 </script>
 </body>
